@@ -14,6 +14,8 @@ lags.lastMsg = ""
 lags.lvl = 0
 lags.lastLag = SysTime()
 
+lags.critPlayers = 12 -- Это значение игроков, при котором ваш сервер начинает подлагивать и зачастую при этом происходит ложное срабатывание 1 уровня защиты. При этом значении игроков 1 уровень защиты пропускается для стабильной игры. 0, чтобы выключить
+
 -- Function for freeze all ents on the server
 function lags.FrAll () 
 	lags.sendMsg("поиск конфликтов...")
@@ -118,20 +120,21 @@ hook.Add("Think", "lags", function ()
 			lags.lastLag = SysTime()
 			lags.lvl = math.Clamp( lags.lvl + 1 , 0, 5)
 
-			lags.sendMsg(":warning: уровень лагов " .. lags.lvl)
-
-			if ( lags.lvl == 1 ) then 
-				lags.FrAll()
-			end 
+			lags.sendMsg("уровень лагов " .. lags.lvl)
+			if ( lags.lvl == 1 and player.GetCount() <= lags.critPlayers ) then 
+				lags.SetTimeScale(0.8)
+			end
 			if ( lags.lvl >= 2 ) then 
-				lags.ClearAll()
+				lags.SetTimeScale(0.6)
 			end 
 			if ( lags.lvl >= 3 ) then 
-				lags.SetTimeScale(0.8)
+				lags.FrAll()
+				lags.SetTimeScale(0.4)
 				lags.StopE2s()
 			end 
 			if ( lags.lvl >= 4 ) then 
-				lags.SetTimeScale(0.6)
+				lags.SetTimeScale(0.2)
+				lags.ClearAll()
 			end
 		end
 	end 
@@ -149,4 +152,4 @@ end)
 --
 
 print("------------------------\n\n", "Lags LOADED", "\n\n------------------------" )
-lags.sendMsg( ":white_check_mark: скрипт инициализирован" )
+lags.sendMsg( "скрипт инициализирован" )
