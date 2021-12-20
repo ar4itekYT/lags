@@ -162,7 +162,7 @@ hook.Add("Think", "lags", function ()
 			end
 			if ( lags.lvl >= 5 ) then 
 				lags.SetTimeScale(0.4)
-				lags.StopE2s
+				lags.StopE2s()
 				lags.cleanUp()
 			end
 		end
