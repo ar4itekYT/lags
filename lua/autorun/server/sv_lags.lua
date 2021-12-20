@@ -1,6 +1,6 @@
 -- Net for message sending
 util.AddNetworkString( "lags_sendmsg" )
-
+util.AddNetworkString( "lags_sendnotify" )
 -- Vars
 local lags = {}
 -- Table vars
