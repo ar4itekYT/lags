@@ -141,7 +141,7 @@ hook.Add("Think", "lags", function ()
 			lags.lastLag = SysTime()
 			lags.lvl = math.Clamp( lags.lvl + 1 , 0, 5)
 
-			if (lags.tickDiff > 25) then lags.lvl = lags.lvl+1 end
+			-- if (lags.tickDiff > 25) then lags.lvl = lags.lvl+1 end
 
 			lags.sendMsg("уровень лагов " .. lags.lvl)
 			if ( lags.lvl == 1 and player.GetCount() <= lags.critPlayers ) then 
